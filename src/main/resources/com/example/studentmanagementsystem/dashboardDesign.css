@@ -1,0 +1,69 @@
+/* Top Bar */
+.top-bar {
+    -fx-background-color: #fff;
+    -fx-border-color: #e5e5e5;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.close-btn, .minimize-btn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.close-btn:hover { -fx-background-color: #ff4d4d; }
+.minimize-btn:hover { -fx-background-color: #e5e5e5; }
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom right, #3f5e94, #2c9ca6);
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "Tahoma";
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 10px 20px;
+}
+.nav-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.signout-btn {
+    -fx-background-color: #3f5e94;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+.signout-btn:hover {
+    -fx-background-color: #2b5d84;
+}
+
+/* Dashboard Cards */
+.card-total {
+    -fx-background-color: linear-gradient(to right, #2c9ca6, #3f5e94);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+.card-female {
+    -fx-background-color: linear-gradient(to right, #2c9ca6, #3f5e94);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+.card-male {
+    -fx-background-color: linear-gradient(to right, #2c9ca6, #3f5e94);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+/* Charts */
+.chart-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+.chart-title {
+    -fx-font-family: "Tahoma";
+    -fx-font-size: 14px;
+    -fx-text-fill: #464646;
+}

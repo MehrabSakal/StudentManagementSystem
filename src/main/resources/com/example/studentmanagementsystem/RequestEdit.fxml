@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.RequestEditController">
+    <children>
+        <VBox alignment="CENTER" layoutX="50.0" layoutY="25.0" prefHeight="250.0" prefWidth="300.0" spacing="15.0">
+            <children>
+                <Label text="Request Profile Update">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <Label text="Which detail is incorrect?" textFill="#7f8fa6" />
+                <ComboBox fx:id="fieldBox" prefWidth="280.0" promptText="Select Field" />
+
+                <Label text="What is the correct value?" textFill="#7f8fa6" />
+                <TextField fx:id="newValueField" promptText="Enter correct detail" />
+
+                <Button mnemonicParsing="false" onAction="#sendRequest" prefWidth="280.0" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-cursor: hand;" text="SEND REQUEST TO ADMIN" />
+
+                <Label fx:id="statusLabel" textFill="#27ae60" wrapText="true" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

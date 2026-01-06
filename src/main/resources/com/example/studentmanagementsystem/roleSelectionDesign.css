@@ -1,0 +1,60 @@
+/* roleSelectionDesign.css */
+
+.root-pane {
+    /* A nice professional blue-purple gradient background */
+    -fx-background-color: linear-gradient(to bottom right, #3a7bd5, #3a6073);
+}
+
+.card-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); /* Shadow for depth */
+    -fx-padding: 30;
+}
+
+.title-label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3447;
+}
+
+.subtitle-label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8fa6;
+}
+
+.admin-btn {
+    -fx-background-color: #A52A2A; /* Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 30; /* Pill shape */
+    -fx-cursor: hand;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 45px;
+}
+
+.admin-btn:hover {
+    -fx-background-color: #A52A2A;
+    -fx-scale-x: 1.05; /* Slight grow effect */
+    -fx-scale-y: 1.05;
+}
+
+.student-btn {
+    -fx-background-color: #A52A2A; /* Lighter Blue */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 30;
+    -fx-cursor: hand;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 45px;
+}
+
+.student-btn:hover {
+    -fx-background-color: #A52A2A;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}

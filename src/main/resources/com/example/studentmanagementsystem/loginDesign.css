@@ -1,0 +1,52 @@
+/* loginDesign.css */
+.root-pane {
+    /* Blue/Teal Gradient Background */
+    -fx-background-color: linear-gradient(to bottom right, #3a7bd5, #3a6073);
+}
+
+.card-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-padding: 30;
+}
+
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3447;
+}
+
+.input-field {
+    -fx-background-color: #f1f2f6;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+}
+
+.input-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4a69bd;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+.login-btn {
+    -fx-background-color: #4a69bd;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.login-btn:hover {
+    -fx-background-color: #3c55a5;
+}
+
+.back-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="700.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.UpdateStudentController">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="50.0" layoutY="30.0" prefHeight="480.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); -fx-padding: 30;">
+            <children>
+                <Label text="Edit Student Details" textFill="#2d3447">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <GridPane hgap="20.0" vgap="15.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="180.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="180.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Student #:" textFill="#7f8fa6" GridPane.halignment="RIGHT" />
+                        <TextField fx:id="studentIdField" disable="true" editable="false" style="-fx-background-color: #e0e0e0;" GridPane.columnIndex="1" />
+
+                        <Label text="First Name:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+                        <TextField fx:id="firstNameField" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" />
+
+                        <Label text="Year:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="yearBox" prefWidth="200.0" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                        <Label text="Last Name:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                        <TextField fx:id="lastNameField" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                        <Label text="Department:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="departmentBox" prefWidth="200.0" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                        <Label text="Gender:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="genderBox" prefWidth="200.0" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                        <Label text="Status:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="statusBox" prefWidth="200.0" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                        <Label text="Birth Date:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="birthDatePicker" prefWidth="200.0" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </GridPane>
+
+                <Label minHeight="10.0" />
+
+                <Button mnemonicParsing="false" onAction="#updateStudent" prefHeight="40.0" prefWidth="250.0" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="UPDATE RECORD" />
+
+                <Label fx:id="messageLabel" alignment="CENTER" prefWidth="400.0" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
