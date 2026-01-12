@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.StudentResultListController">
+   <children>
+      <Label layoutX="320.0" layoutY="20.0" text="Student Results" textFill="#2d3447">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      
+      <TableView fx:id="resultsTable" layoutX="50.0" layoutY="80.0" prefHeight="380.0" prefWidth="700.0">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="100.0" text="Student ID" />
+          <TableColumn fx:id="colDepartment" prefWidth="150.0" text="Department" />
+          <TableColumn fx:id="colYear" prefWidth="100.0" text="Year" />
+          <TableColumn fx:id="colFirstSem" prefWidth="100.0" text="1st Sem GPA" />
+          <TableColumn fx:id="colSecondSem" prefWidth="100.0" text="2nd Sem GPA" />
+          <TableColumn fx:id="colFinal" prefWidth="100.0" text="Final Result" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
