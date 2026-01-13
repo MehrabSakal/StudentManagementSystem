@@ -22,12 +22,18 @@ public class DatabaseConnection {
         String sqlStudents = "CREATE TABLE IF NOT EXISTS students (\n"
                 + " student_id integer PRIMARY KEY,\n"
                 + " year text,\n"
-                + " department text,\n" // Renamed from course
+                + " department text,\n"
                 + " first_name text NOT NULL,\n"
                 + " last_name text NOT NULL,\n"
                 + " gender text,\n"
                 + " birth_date text,\n"
-                + " status text\n"
+                + " status text,\n"
+                + " image text,\n"
+                + " present_address text,\n"
+                + " permanent_address text,\n"
+                + " father_name text,\n"
+                + " mother_name text,\n"
+                + " semester text\n"
                 + ");";
 
         // 2. Departments Table (Renamed from courses)
@@ -55,12 +61,43 @@ public class DatabaseConnection {
                 + " FOREIGN KEY (student_id) REFERENCES students(student_id)\n"
                 + ");";
 
+        // 5. Course Grades (Detailed Result)
+        String sqlCourseGrades = "CREATE TABLE IF NOT EXISTS student_course_grades (\n"
+                + " id integer PRIMARY KEY AUTOINCREMENT,\n"
+                + " student_id integer,\n"
+                + " semester text,\n"
+                + " course_name text,\n"
+                + " credit double,\n"
+                + " gpa double,\n"
+                + " FOREIGN KEY (student_id) REFERENCES students(student_id)\n"
+                + ");";
+
         try (Connection conn = connect();
-             java.sql.Statement stmt = conn.createStatement()) {
+                java.sql.Statement stmt = conn.createStatement()) {
             stmt.execute(sqlStudents);
             stmt.execute(sqlDepartments);
             stmt.execute(sqlGrades);
             stmt.execute(sqlRequests);
+            stmt.execute(sqlCourseGrades);
+
+            // Migration for existing tables - Try to add columns if they don't exist
+            String[] migrations = {
+                    "ALTER TABLE students ADD COLUMN image text;",
+                    "ALTER TABLE students ADD COLUMN present_address text;",
+                    "ALTER TABLE students ADD COLUMN permanent_address text;",
+                    "ALTER TABLE students ADD COLUMN father_name text;",
+                    "ALTER TABLE students ADD COLUMN mother_name text;",
+                    "ALTER TABLE students ADD COLUMN semester text;"
+            };
+
+            for (String migration : migrations) {
+                try {
+                    stmt.execute(migration);
+                } catch (SQLException ignored) {
+                    // Column likely already exists
+                }
+            }
+
             System.out.println("Database initialized: Single Department Mode.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

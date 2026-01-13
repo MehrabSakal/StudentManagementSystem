@@ -2,9 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.DashboardController">
@@ -28,11 +30,112 @@
     <center>
         <AnchorPane fx:id="mainContent" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="welcomeLabel" layoutX="20.0" layoutY="20.0" text="Welcome Admin!">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
+                <VBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="welcomeLabel" text="Welcome Admin!">
+                            <font>
+                                <Font name="System Bold" size="28.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="20.0" top="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="30.0">
+                            <children>
+                                <!-- Total Students Card -->
+                                <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: #3498db; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                                    <children>
+                                        <Label text="Total Students" textFill="WHITE">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblTotalStudents" text="0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="48.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                
+                                <!-- Enrolled Students Card -->
+                                <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: #2ecc71; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                                    <children>
+                                        <Label text="Enrolled Students" textFill="WHITE">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblEnrolled" text="0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="48.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                
+                                <!-- Pending Requests Card -->
+                                <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: #e74c3c; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                                    <children>
+                                        <Label text="Pending Requests" textFill="WHITE">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblRequests" text="0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="48.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </HBox>
+                        
+                        <!-- NEW ROW: Gender Statistics -->
+                        <HBox alignment="CENTER" spacing="30.0">
+                            <children>
+                                <!-- Male Students Card -->
+                                <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: #8e44ad; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                                    <children>
+                                        <Label text="Male Students" textFill="WHITE">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblMale" text="0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="48.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- Female Students Card -->
+                                <VBox alignment="CENTER" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: #e67e22; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);">
+                                    <children>
+                                        <Label text="Female Students" textFill="WHITE">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblFemale" text="0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="48.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                </VBox>
             </children>
         </AnchorPane>
     </center>

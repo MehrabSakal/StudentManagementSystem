@@ -15,13 +15,20 @@ import java.sql.ResultSet;
 
 public class AdminRequestsController {
 
-    @FXML private TableView<EditRequest> requestTable;
-    @FXML private TableColumn<EditRequest, Integer> colId;
-    @FXML private TableColumn<EditRequest, Integer> colStudentId;
-    @FXML private TableColumn<EditRequest, String> colField;
-    @FXML private TableColumn<EditRequest, String> colNewValue;
-    @FXML private TableColumn<EditRequest, String> colStatus;
-    @FXML private Label statusLabel;
+    @FXML
+    private TableView<EditRequest> requestTable;
+    @FXML
+    private TableColumn<EditRequest, Integer> colId;
+    @FXML
+    private TableColumn<EditRequest, Integer> colStudentId;
+    @FXML
+    private TableColumn<EditRequest, String> colField;
+    @FXML
+    private TableColumn<EditRequest, String> colNewValue;
+    @FXML
+    private TableColumn<EditRequest, String> colStatus;
+    @FXML
+    private Label statusLabel;
 
     private ObservableList<EditRequest> requestList = FXCollections.observableArrayList();
 
@@ -40,7 +47,7 @@ public class AdminRequestsController {
         requestList.clear();
         String sql = "SELECT * FROM edit_requests WHERE status = 'Pending'";
         try (Connection conn = DatabaseConnection.connect();
-             ResultSet rs = conn.createStatement().executeQuery(sql)) {
+                ResultSet rs = conn.createStatement().executeQuery(sql)) {
 
             while (rs.next()) {
                 requestList.add(new EditRequest(
@@ -48,8 +55,7 @@ public class AdminRequestsController {
                         rs.getInt("student_id"),
                         rs.getString("field_to_change"),
                         rs.getString("new_value"),
-                        rs.getString("status")
-                ));
+                        rs.getString("status")));
             }
             requestTable.setItems(requestList);
         } catch (Exception e) {
@@ -60,16 +66,52 @@ public class AdminRequestsController {
     @FXML
     public void approveRequest(ActionEvent event) {
         EditRequest req = requestTable.getSelectionModel().getSelectedItem();
-        if (req == null) return;
+        if (req == null)
+            return;
 
         // 1. Determine which DB column to update
         String dbColumn = "";
         switch (req.getField()) {
-            case "First Name": dbColumn = "first_name"; break;
-            case "Last Name": dbColumn = "last_name"; break;
-            case "Gender": dbColumn = "gender"; break;
-            case "Birth Date": dbColumn = "birth_date"; break;
-            default: return; // Invalid field
+            case "First Name":
+                dbColumn = "first_name";
+                break;
+            case "Last Name":
+                dbColumn = "last_name";
+                break;
+            case "Gender":
+                dbColumn = "gender";
+                break;
+            case "Birth Date":
+                dbColumn = "birth_date";
+                break;
+
+            case "Department":
+                dbColumn = "department";
+                break;
+            case "Year Level":
+                dbColumn = "year";
+                break;
+            case "Semester":
+                dbColumn = "semester";
+                break;
+
+            case "Father's Name":
+                dbColumn = "father_name";
+                break;
+            case "Mother's Name":
+                dbColumn = "mother_name";
+                break;
+
+            case "Present Address":
+                dbColumn = "present_address";
+                break;
+            case "Permanent Address":
+                dbColumn = "permanent_address";
+                break;
+
+            default:
+                statusLabel.setText("Unknown field: " + req.getField());
+                return;
         }
 
         String updateStudentSql = "UPDATE students SET " + dbColumn + " = ? WHERE student_id = ?";
@@ -103,11 +145,12 @@ public class AdminRequestsController {
     @FXML
     public void rejectRequest(ActionEvent event) {
         EditRequest req = requestTable.getSelectionModel().getSelectedItem();
-        if (req == null) return;
+        if (req == null)
+            return;
 
         String sql = "UPDATE edit_requests SET status = 'Rejected' WHERE request_id = ?";
         try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, req.getRequestId());
             pstmt.executeUpdate();
 
