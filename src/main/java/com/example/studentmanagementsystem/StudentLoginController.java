@@ -17,8 +17,10 @@ import java.sql.ResultSet;
 
 public class StudentLoginController {
 
-    @FXML private TextField studentIdField;
-    @FXML private Label errorLabel;
+    @FXML
+    private TextField studentIdField;
+    @FXML
+    private Label errorLabel;
 
     @FXML
     public void loginStudent(ActionEvent event) {
@@ -33,7 +35,7 @@ public class StudentLoginController {
         String sql = "SELECT * FROM students WHERE student_id = ?";
 
         try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, Integer.parseInt(idText));
             ResultSet rs = pstmt.executeQuery();
@@ -53,7 +55,13 @@ public class StudentLoginController {
             errorLabel.setText("ID must be a number.");
         } catch (Exception e) {
             e.printStackTrace();
-            errorLabel.setText("Database error.");
+            // Show meaningful error
+            String msg = e.getMessage();
+            if (msg == null && e.getCause() != null)
+                msg = e.getCause().getMessage();
+            if (msg == null)
+                msg = e.getClass().getSimpleName();
+            errorLabel.setText("Error: " + msg);
         }
     }
 
@@ -65,7 +73,7 @@ public class StudentLoginController {
         StudentDashboardController controller = loader.getController();
         controller.setStudentSession(studentId, name);
 
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Student Dashboard - " + name);
         stage.show();
@@ -74,7 +82,7 @@ public class StudentLoginController {
     @FXML
     public void goBackToRoleSelection(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("RoleSelection.fxml"));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }

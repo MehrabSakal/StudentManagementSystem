@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: brown;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.SystemController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #47A2B2;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.SystemController">
     <children>
 
         <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackToRoleSelection" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand;" text="&lt; Back to Role Selection" />
@@ -17,7 +17,7 @@
         <VBox alignment="CENTER" layoutX="210.0" layoutY="50.0" prefHeight="400.0" prefWidth="280.0" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5); -fx-padding: 30;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="50.0">
             <children>
 
-                <Circle fill="#4a69bd" radius="35.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: brown;" />
+                <Circle fill="#4a69bd" radius="35.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #47A2B2;" />
 
                 <Label text="Admin Login" textFill="#2d3447">
                     <font>
@@ -35,7 +35,7 @@
 
                 <Label minHeight="5.0" />
 
-                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="45.0" style="-fx-background-color: brown; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" text="SECURE LOGIN" />
+                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#loginAdmin" prefHeight="45.0" style="-fx-background-color: #47A2B2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" text="SECURE LOGIN" />
 
                 <Label fx:id="errorLabel" textFill="RED" wrapText="true" />
 
