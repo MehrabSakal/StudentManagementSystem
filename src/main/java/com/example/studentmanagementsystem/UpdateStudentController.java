@@ -14,19 +14,41 @@ import java.time.LocalDate;
 
 public class UpdateStudentController {
 
-    @FXML private TextField studentIdField;
-    @FXML private TextField firstNameField;
-    @FXML private TextField lastNameField;
-    @FXML private ComboBox<String> yearBox;
-    @FXML private ComboBox<String> departmentBox; // RENAMED
-    @FXML private ComboBox<String> genderBox;
-    @FXML private ComboBox<String> statusBox;
-    @FXML private DatePicker birthDatePicker;
-    @FXML private Label messageLabel;
+    @FXML
+    private TextField studentIdField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private ComboBox<String> yearBox;
+    @FXML
+    private ComboBox<String> departmentBox;
+    @FXML
+    private ComboBox<String> semesterBox; // New
+    @FXML
+    private ComboBox<String> genderBox;
+    @FXML
+    private ComboBox<String> statusBox;
+    @FXML
+    private DatePicker birthDatePicker;
+
+    @FXML
+    private TextField fatherNameField; // New
+    @FXML
+    private TextField motherNameField; // New
+    @FXML
+    private TextField presentAddressField; // New
+    @FXML
+    private TextField permanentAddressField; // New
+
+    @FXML
+    private Label messageLabel;
 
     @FXML
     public void initialize() {
         yearBox.setItems(FXCollections.observableArrayList("First Year", "Second Year", "Third Year", "Fourth Year"));
+        semesterBox.setItems(FXCollections.observableArrayList("1st Semester", "2nd Semester"));
         genderBox.setItems(FXCollections.observableArrayList("Male", "Female"));
         statusBox.setItems(FXCollections.observableArrayList("Enrolled", "Not Enrolled", "Graduated"));
 
@@ -35,11 +57,10 @@ public class UpdateStudentController {
 
     private void populateDepartmentComboBox() {
         ObservableList<String> depts = FXCollections.observableArrayList();
-        // UPDATED SQL: SELECT FROM departments table
         String sql = "SELECT dept_code FROM departments";
         try (Connection conn = DatabaseConnection.connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 depts.add(rs.getString("dept_code"));
             }
@@ -49,39 +70,52 @@ public class UpdateStudentController {
         }
     }
 
-    // Called by the List Controller to fill the form
     public void setStudentData(Student student) {
         studentIdField.setText(String.valueOf(student.getStudentId()));
         firstNameField.setText(student.getFirstName());
         lastNameField.setText(student.getLastName());
 
         yearBox.setValue(student.getYear());
-        departmentBox.setValue(student.getDepartment()); // UPDATED getter
+        departmentBox.setValue(student.getDepartment());
+        semesterBox.setValue(student.getSemester());
         genderBox.setValue(student.getGender());
         statusBox.setValue(student.getStatus());
 
+        fatherNameField.setText(student.getFatherName());
+        motherNameField.setText(student.getMotherName());
+        presentAddressField.setText(student.getPresentAddress());
+        permanentAddressField.setText(student.getPermanentAddress());
+
         if (student.getBirthDate() != null && !student.getBirthDate().isEmpty()) {
-            birthDatePicker.setValue(LocalDate.parse(student.getBirthDate()));
+            try {
+                birthDatePicker.setValue(LocalDate.parse(student.getBirthDate()));
+            } catch (Exception ignored) {
+            }
         }
     }
 
     @FXML
     public void updateStudent(ActionEvent event) {
-        // UPDATED SQL: Update 'department' column instead of 'course'
-        String sql = "UPDATE students SET first_name = ?, last_name = ?, year = ?, department = ?, gender = ?, status = ?, birth_date = ? WHERE student_id = ?";
+        String sql = "UPDATE students SET first_name = ?, last_name = ?, year = ?, department = ?, semester = ?, gender = ?, status = ?, birth_date = ?, father_name = ?, mother_name = ?, present_address = ?, permanent_address = ? WHERE student_id = ?";
 
         try (Connection conn = DatabaseConnection.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, firstNameField.getText());
             pstmt.setString(2, lastNameField.getText());
             pstmt.setString(3, yearBox.getValue());
-            pstmt.setString(4, departmentBox.getValue()); // Get value from new box
-            pstmt.setString(5, genderBox.getValue());
-            pstmt.setString(6, statusBox.getValue());
-            pstmt.setString(7, birthDatePicker.getValue().toString());
+            pstmt.setString(4, departmentBox.getValue());
+            pstmt.setString(5, semesterBox.getValue());
+            pstmt.setString(6, genderBox.getValue());
+            pstmt.setString(7, statusBox.getValue());
+            pstmt.setString(8, birthDatePicker.getValue() != null ? birthDatePicker.getValue().toString() : "");
 
-            pstmt.setInt(8, Integer.parseInt(studentIdField.getText()));
+            pstmt.setString(9, fatherNameField.getText());
+            pstmt.setString(10, motherNameField.getText());
+            pstmt.setString(11, presentAddressField.getText());
+            pstmt.setString(12, permanentAddressField.getText());
+
+            pstmt.setInt(13, Integer.parseInt(studentIdField.getText()));
 
             int rowsAffected = pstmt.executeUpdate();
 
