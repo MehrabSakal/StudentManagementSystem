@@ -9,12 +9,12 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: brown;" stylesheets="@roleSelectionDesign.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.RoleSelectionController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #47A2B2;" stylesheets="@roleSelectionDesign.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.RoleSelectionController">
     <children>
         <VBox alignment="CENTER" layoutX="225.0" layoutY="75.0" prefHeight="350.0" prefWidth="250.0" spacing="15.0" styleClass="card-pane" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="75.0">
             <children>
 
-                <Circle fill="#4a69bd" radius="30.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" style="-fx-fill: brown;" />
+                <Circle fill="#1ebae5" radius="30.0" smooth="false" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" style="-fx-fill: #47A2B2;" />
 
                 <Label styleClass="title-label" text="SMS Portal">
                     <font>
@@ -30,9 +30,9 @@
                     </VBox.margin>
                 </Separator>
 
-                <Button mnemonicParsing="false" onAction="#switchToAdminLogin" styleClass="admin-btn" text="ADMINISTRATOR" />
+                <Button mnemonicParsing="false" onAction="#switchToAdminLogin" style="-fx-background-color: #47A2B2;" styleClass="admin-btn" text="ADMINISTRATOR" />
 
-                <Button mnemonicParsing="false" onAction="#switchToStudentView" styleClass="student-btn" text="STUDENT" />
+                <Button mnemonicParsing="false" onAction="#switchToStudentView" style="-fx-background-color: #47A2B2;" styleClass="student-btn" text="STUDENT" />
 
             </children>
         </VBox>

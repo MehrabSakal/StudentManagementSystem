@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.StudentDetailController">
+<AnchorPane prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.StudentDetailController">
     <children>
-        <VBox layoutX="30.0" layoutY="30.0" prefHeight="440.0" prefWidth="340.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-padding: 25;">
+        <VBox layoutX="30.0" layoutY="10.0" prefHeight="580.0" prefWidth="340.0" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-padding: 20;">
             <children>
                 <Label text="Student Profile" textFill="#2d3447">
                     <font>
@@ -56,6 +57,63 @@
                 <Label fx:id="lblBirthDate" text="2000-01-01">
                     <font>
                         <Font size="16.0" />
+                    </font>
+                </Label>
+                
+                <Label text="Semester" textFill="#7f8fa6" />
+                <Label fx:id="lblSemester" text="1st Semester">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                
+                <Label text="Father's Name" textFill="#7f8fa6" />
+                <Label fx:id="lblFather" text="-">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                
+                <Label text="Mother's Name" textFill="#7f8fa6" />
+                <Label fx:id="lblMother" text="-">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                
+                <Label text="Addresses" textFill="#7f8fa6" />
+                <Label fx:id="lblAddress" text="-" wrapText="true">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                
+                <Separator prefWidth="200.0" />
+                
+                <Label text="Academic Performance" textFill="#2d3447">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                
+                <Label text="1st Sem Grade" textFill="#7f8fa6" />
+                <Label fx:id="lblFirstSem" text="-">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                
+                <Label text="2nd Sem Grade" textFill="#7f8fa6" />
+                <Label fx:id="lblSecondSem" text="-">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                
+                <Label text="Final Result" textFill="#7f8fa6" />
+                <Label fx:id="lblFinal" text="-">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
                     </font>
                 </Label>
 
