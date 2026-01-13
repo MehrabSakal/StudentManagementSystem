@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class AddStudentController {
 
@@ -50,6 +51,8 @@ public class AddStudentController {
     private TextField presentAddressField;
     @FXML
     private TextField permanentAddressField;
+    @FXML
+    private PasswordField passwordField;
 
     private String imagePath; // To store selected image path
 
@@ -107,8 +110,10 @@ public class AddStudentController {
         String mother = motherNameField.getText();
         String presentObj = presentAddressField.getText();
         String permanent = permanentAddressField.getText(); // Corrected variable name
+        String password = passwordField.getText();
 
-        if (idText.isEmpty() || fName.isEmpty() || lName.isEmpty() || dept == null || semester == null) {
+        if (idText.isEmpty() || fName.isEmpty() || lName.isEmpty() || dept == null || semester == null
+                || password.isEmpty()) {
             statusLabel.setText("Please fill core fields & semester.");
             statusLabel.setStyle("-fx-text-fill: red;");
             return;
@@ -121,7 +126,7 @@ public class AddStudentController {
             return;
         }
 
-        String sql = "INSERT INTO students(student_id, year, department, first_name, last_name, gender, birth_date, status, image, present_address, permanent_address, father_name, mother_name, semester) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO students(student_id, year, department, first_name, last_name, gender, birth_date, status, image, present_address, permanent_address, father_name, mother_name, semester, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = DatabaseConnection.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -140,6 +145,7 @@ public class AddStudentController {
             pstmt.setString(12, father);
             pstmt.setString(13, mother);
             pstmt.setString(14, semester);
+            pstmt.setString(15, BCrypt.hashpw(password, BCrypt.gensalt()));
 
             pstmt.executeUpdate();
 
@@ -164,6 +170,7 @@ public class AddStudentController {
         motherNameField.clear();
         presentAddressField.clear();
         permanentAddressField.clear();
+        passwordField.clear();
         studentImageView.setImage(null);
         imagePath = null;
     }

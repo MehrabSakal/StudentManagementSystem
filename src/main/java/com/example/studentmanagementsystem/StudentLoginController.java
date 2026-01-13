@@ -14,20 +14,25 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import org.mindrot.jbcrypt.BCrypt;
+import javafx.scene.control.PasswordField;
 
 public class StudentLoginController {
 
     @FXML
     private TextField studentIdField;
     @FXML
+    private PasswordField passwordField;
+    @FXML
     private Label errorLabel;
 
     @FXML
     public void loginStudent(ActionEvent event) {
         String idText = studentIdField.getText();
+        String password = passwordField.getText();
 
-        if (idText.isEmpty()) {
-            errorLabel.setText("Please enter your Student ID.");
+        if (idText.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Please enter ID and Password.");
             return;
         }
 
@@ -41,14 +46,20 @@ public class StudentLoginController {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                // Login Success: Get student details
-                int dbId = rs.getInt("student_id");
-                String dbName = rs.getString("first_name");
+                String dbHash = rs.getString("password");
 
-                // Load Student Dashboard
-                openStudentDashboard(event, dbId, dbName);
+                if (dbHash != null && BCrypt.checkpw(password, dbHash)) {
+                    // Login Success: Get student details
+                    int dbId = rs.getInt("student_id");
+                    String dbName = rs.getString("first_name");
+
+                    // Load Student Dashboard
+                    openStudentDashboard(event, dbId, dbName);
+                } else {
+                    errorLabel.setText("Invalid ID or Password.");
+                }
             } else {
-                errorLabel.setText("Student ID not found.");
+                errorLabel.setText("Invalid ID or Password."); // Generic error for security
             }
 
         } catch (NumberFormatException e) {

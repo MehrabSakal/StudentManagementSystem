@@ -21,6 +21,7 @@ public class DatabaseConnection {
         // 1. Students Table (Added 'department' column back)
         String sqlStudents = "CREATE TABLE IF NOT EXISTS students (\n"
                 + " student_id integer PRIMARY KEY,\n"
+                + " password text,\n"
                 + " year text,\n"
                 + " department text,\n"
                 + " first_name text NOT NULL,\n"
@@ -87,7 +88,8 @@ public class DatabaseConnection {
                     "ALTER TABLE students ADD COLUMN permanent_address text;",
                     "ALTER TABLE students ADD COLUMN father_name text;",
                     "ALTER TABLE students ADD COLUMN mother_name text;",
-                    "ALTER TABLE students ADD COLUMN semester text;"
+                    "ALTER TABLE students ADD COLUMN semester text;",
+                    "ALTER TABLE students ADD COLUMN password text;"
             };
 
             for (String migration : migrations) {

@@ -5,7 +5,8 @@ module com.example.studentmanagementsystem {
     requires javafx.graphics;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome5;
-    requires java.sql; // You'll need this later for database connectivity
+    requires java.sql;
+    requires jbcrypt; // You'll need this later for database connectivity
 
     // Open the package so JavaFX can access your Controllers via reflection
     opens com.example.studentmanagementsystem to javafx.fxml;

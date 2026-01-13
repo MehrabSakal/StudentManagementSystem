@@ -24,11 +24,12 @@
                     </font>
                 </Label>
 
-                <Label text="Enter your ID to access grades" textAlignment="CENTER" textFill="#7f8fa6" wrapText="true" />
+                <Label text="Enter your ID and Password" textAlignment="CENTER" textFill="#7f8fa6" wrapText="true" />
 
                 <Label minHeight="10.0" />
 
                 <TextField fx:id="studentIdField" prefHeight="45.0" promptText="Student ID (e.g. 2022001)" style="-fx-background-color: #f1f2f6; -fx-background-radius: 5; -fx-padding: 10;" />
+                <javafx.scene.control.PasswordField fx:id="passwordField" prefHeight="45.0" promptText="Password" style="-fx-background-color: #f1f2f6; -fx-background-radius: 5; -fx-padding: 10;" />
 
                 <Label minHeight="5.0" />
 

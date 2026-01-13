@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UpdateStudentController {
 
@@ -41,6 +42,8 @@ public class UpdateStudentController {
     private TextField presentAddressField; // New
     @FXML
     private TextField permanentAddressField; // New
+    @FXML
+    private PasswordField passwordField; // New
 
     @FXML
     private Label messageLabel;
@@ -96,10 +99,20 @@ public class UpdateStudentController {
 
     @FXML
     public void updateStudent(ActionEvent event) {
-        String sql = "UPDATE students SET first_name = ?, last_name = ?, year = ?, department = ?, semester = ?, gender = ?, status = ?, birth_date = ?, father_name = ?, mother_name = ?, present_address = ?, permanent_address = ? WHERE student_id = ?";
+        String password = passwordField.getText();
+        boolean updatePassword = password != null && !password.isEmpty();
+
+        StringBuilder sqlBuilder = new StringBuilder(
+                "UPDATE students SET first_name = ?, last_name = ?, year = ?, department = ?, semester = ?, gender = ?, status = ?, birth_date = ?, father_name = ?, mother_name = ?, present_address = ?, permanent_address = ?");
+
+        if (updatePassword) {
+            sqlBuilder.append(", password = ?");
+        }
+
+        sqlBuilder.append(" WHERE student_id = ?");
 
         try (Connection conn = DatabaseConnection.connect();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sqlBuilder.toString())) {
 
             pstmt.setString(1, firstNameField.getText());
             pstmt.setString(2, lastNameField.getText());
@@ -115,13 +128,20 @@ public class UpdateStudentController {
             pstmt.setString(11, presentAddressField.getText());
             pstmt.setString(12, permanentAddressField.getText());
 
-            pstmt.setInt(13, Integer.parseInt(studentIdField.getText()));
+            int paramIndex = 13;
+            if (updatePassword) {
+                pstmt.setString(paramIndex++, BCrypt.hashpw(password, BCrypt.gensalt()));
+            }
+
+            pstmt.setInt(paramIndex, Integer.parseInt(studentIdField.getText()));
 
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
                 messageLabel.setText("Update Successful!");
                 messageLabel.setStyle("-fx-text-fill: green;");
+                if (updatePassword)
+                    passwordField.clear();
             } else {
                 messageLabel.setText("Error: ID not found.");
                 messageLabel.setStyle("-fx-text-fill: red;");

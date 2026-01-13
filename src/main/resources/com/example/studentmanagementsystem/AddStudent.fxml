@@ -96,6 +96,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                              <children>
                                 <Label text="Father's Name:" textFill="#7f8fa6" GridPane.halignment="RIGHT" />
@@ -109,6 +110,9 @@
                                 
                                 <Label text="Permanent Addr:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                                 <TextField fx:id="permanentAddressField" promptText="Address" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                <Label text="Password:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                <javafx.scene.control.PasswordField fx:id="passwordField" promptText="Enter Password" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                              </children>
                         </GridPane>
                     </children>
