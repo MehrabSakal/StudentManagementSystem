@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.AddStudentController">
+<AnchorPane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studentmanagementsystem.AddStudentController">
     <children>
-        <VBox alignment="TOP_CENTER" layoutX="50.0" layoutY="30.0" prefHeight="580.0" prefWidth="700.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); -fx-padding: 30;">
+        <VBox alignment="TOP_CENTER" layoutX="50.0" layoutY="39.0" prefHeight="574.0" prefWidth="739.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5); -fx-padding: 30;">
             <children>
                 <Label text="Add Student" textFill="#2d3447">
                     <font>
@@ -24,54 +24,100 @@
                     </font>
                 </Label>
 
-                <GridPane hgap="20.0" vgap="15.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="220.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="220.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
                     <children>
-                        <Label text="Student #:" textFill="#7f8fa6" GridPane.halignment="RIGHT" />
-                        <TextField fx:id="studentIdField" promptText="e.g. 20220001" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" />
+                        <VBox alignment="CENTER" spacing="10.0">
+                             <children>
+                                 <ImageView fx:id="studentImageView" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: #ccc; -fx-border-width: 1;">
+                                     <image>
+                                         <!-- Place holder logic in controller -->
+                                     </image>
+                                 </ImageView>
+                                 <Button mnemonicParsing="false" onAction="#importImage" text="Import Photo" />
+                             </children>
+                        </VBox>
+                        
+                        <GridPane hgap="20.0" vgap="10.0" HBox.hgrow="ALWAYS">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="220.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <!-- New Rows -->
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Student #:" textFill="#7f8fa6" GridPane.halignment="RIGHT" />
+                                <TextField fx:id="studentIdField" promptText="e.g. 20220001" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" />
+        
+                                <Label text="First Name:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                <TextField fx:id="firstNameField" promptText="Enter first name" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                
+                                <Label text="Last Name:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                <TextField fx:id="lastNameField" promptText="Enter last name" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                        <Label text="First Name:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
-                        <TextField fx:id="firstNameField" promptText="Enter first name" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" />
+                                <Label text="Year:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                <ComboBox fx:id="yearBox" prefWidth="250.0" promptText="Choose" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                        <Label text="Year:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="yearBox" prefWidth="250.0" promptText="Choose" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Department:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                <ComboBox fx:id="departmentBox" prefWidth="250.0" promptText="Choose Dept" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                
+                                <Label text="Semester:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                                <ComboBox fx:id="semesterBox" prefWidth="250.0" promptText="Select Semester" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                
+                                <Label text="Gender:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+                                <ComboBox fx:id="genderBox" prefWidth="250.0" promptText="Choose" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                
+                                <Label text="Status:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+                                <ComboBox fx:id="statusBox" prefWidth="250.0" promptText="Choose" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                
+                                <Label text="Birth Date:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+                                <DatePicker fx:id="birthDatePicker" prefWidth="250.0" promptText="MM/DD/YYYY" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
 
-                        <Label text="Last Name:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <TextField fx:id="lastNameField" promptText="Enter last name" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-
-                        <Label text="Department:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="departmentBox" prefWidth="250.0" promptText="Choose Dept" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                        <Label text="Gender:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="genderBox" prefWidth="250.0" promptText="Choose" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-
-                        <Label text="Status:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <ComboBox fx:id="statusBox" prefWidth="250.0" promptText="Choose" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                        <Label text="Birth Date:" textFill="#7f8fa6" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                        <DatePicker fx:id="birthDatePicker" prefWidth="250.0" promptText="MM/DD/YYYY" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-
+                            </children>
+                        </GridPane>
+                        
+                        <!-- Second Column of Fields -->
+                        <GridPane hgap="20.0" vgap="10.0" HBox.hgrow="ALWAYS">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="100.0" prefWidth="120.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="220.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                             <children>
+                                <Label text="Father's Name:" textFill="#7f8fa6" GridPane.halignment="RIGHT" />
+                                <TextField fx:id="fatherNameField" promptText="Father Name" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" />
+                                
+                                <Label text="Mother's Name:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                                <TextField fx:id="motherNameField" promptText="Mother Name" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                
+                                <Label text="Present Address:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+                                <TextField fx:id="presentAddressField" promptText="Address" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                
+                                <Label text="Permanent Addr:" textFill="#7f8fa6" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                <TextField fx:id="permanentAddressField" promptText="Address" style="-fx-background-color: #f1f2f6;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                             </children>
+                        </GridPane>
                     </children>
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                </GridPane>
+                </HBox>
 
                 <HBox alignment="CENTER" spacing="20.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-weight: bold;" text="Clear" />
-                        <Button mnemonicParsing="false" onAction="#saveStudent" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2D3447; -fx-text-fill: white; -fx-font-weight: bold;" text="Add" />
+                        <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #47A2B2; -fx-text-fill: white; -fx-font-weight: bold;" text="Clear" />
+                        <Button mnemonicParsing="false" onAction="#saveStudent" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #47A2B2; -fx-text-fill: white; -fx-font-weight: bold;" text="Add" />
                     </children>
                 </HBox>
 
