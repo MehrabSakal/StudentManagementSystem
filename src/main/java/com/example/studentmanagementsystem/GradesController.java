@@ -17,20 +17,33 @@ import java.sql.Statement;
 
 public class GradesController {
 
-    @FXML private TextField idField;
-    @FXML private TextField yearField;
-    @FXML private TextField deptField; // Renamed from courseField
-    @FXML private TextField firstSemField;
-    @FXML private TextField secondSemField;
-    @FXML private Label statusLabel;
+    @FXML
+    private TextField idField;
+    @FXML
+    private TextField yearField;
+    @FXML
+    private TextField deptField; // Renamed from courseField
+    @FXML
+    private TextField firstSemField;
+    @FXML
+    private TextField secondSemField;
+    @FXML
+    private Label statusLabel;
 
-    @FXML private TableView<StudentGrade> gradesTable;
-    @FXML private TableColumn<StudentGrade, Integer> colId;
-    @FXML private TableColumn<StudentGrade, String> colYear;
-    @FXML private TableColumn<StudentGrade, String> colDept; // Renamed
-    @FXML private TableColumn<StudentGrade, Double> colFirst;
-    @FXML private TableColumn<StudentGrade, Double> colSecond;
-    @FXML private TableColumn<StudentGrade, Double> colFinal;
+    @FXML
+    private TableView<StudentGrade> gradesTable;
+    @FXML
+    private TableColumn<StudentGrade, Integer> colId;
+    @FXML
+    private TableColumn<StudentGrade, String> colYear;
+    @FXML
+    private TableColumn<StudentGrade, String> colDept; // Renamed
+    @FXML
+    private TableColumn<StudentGrade, Double> colFirst;
+    @FXML
+    private TableColumn<StudentGrade, Double> colSecond;
+    @FXML
+    private TableColumn<StudentGrade, Double> colFinal;
 
     private ObservableList<StudentGrade> gradeList = FXCollections.observableArrayList();
 
@@ -48,15 +61,60 @@ public class GradesController {
         // Listener: When row clicked, fill the form
         gradesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                idField.setText(String.valueOf(newSelection.getStudentId()));
-                yearField.setText(newSelection.getYear());
-                deptField.setText(newSelection.getDepartment());
-
-                // Show grades if they exist (not 0.0)
-                firstSemField.setText(newSelection.getFirstSem() == 0 ? "" : String.valueOf(newSelection.getFirstSem()));
-                secondSemField.setText(newSelection.getSecondSem() == 0 ? "" : String.valueOf(newSelection.getSecondSem()));
+                // Prevent cyclic updates if selection happens programmatically
+                if (!String.valueOf(newSelection.getStudentId()).equals(idField.getText())) {
+                    idField.setText(String.valueOf(newSelection.getStudentId()));
+                }
+                populateFields(newSelection);
             }
         });
+
+        // Listener: When ID typed, find student and fill form
+        idField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                clearFields(false); // Don't clear ID itself
+                return;
+            }
+
+            try {
+                int searchId = Integer.parseInt(newValue);
+                // Search in the loaded list
+                StudentGrade match = null;
+                for (StudentGrade sg : gradeList) {
+                    if (sg.getStudentId() == searchId) {
+                        match = sg;
+                        break;
+                    }
+                }
+
+                if (match != null) {
+                    populateFields(match);
+                    gradesTable.getSelectionModel().select(match);
+                } else {
+                    clearFields(false);
+                }
+            } catch (NumberFormatException e) {
+                // Ignored (user might be typing)
+            }
+        });
+    }
+
+    private void populateFields(StudentGrade sg) {
+        yearField.setText(sg.getYear());
+        deptField.setText(sg.getDepartment());
+        // Show grades if they exist (not 0.0)
+        firstSemField.setText(sg.getFirstSem() == 0 ? "" : String.valueOf(sg.getFirstSem()));
+        secondSemField.setText(sg.getSecondSem() == 0 ? "" : String.valueOf(sg.getSecondSem()));
+    }
+
+    private void clearFields(boolean clearId) {
+        if (clearId)
+            idField.clear();
+        yearField.clear();
+        deptField.clear();
+        firstSemField.clear();
+        secondSemField.clear();
+        statusLabel.setText("");
     }
 
     private void loadGrades() {
@@ -69,8 +127,8 @@ public class GradesController {
                 "LEFT JOIN student_grades g ON s.student_id = g.student_id";
 
         try (Connection conn = DatabaseConnection.connect();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 gradeList.add(new StudentGrade(
@@ -79,8 +137,7 @@ public class GradesController {
                         rs.getString("department"), // Simple string now
                         rs.getDouble("first_sem"),
                         rs.getDouble("second_sem"),
-                        rs.getDouble("final")
-                ));
+                        rs.getDouble("final")));
             }
             gradesTable.setItems(gradeList);
 
@@ -103,19 +160,28 @@ public class GradesController {
             double second = Double.parseDouble(secondSemField.getText());
             double finalGrade = (first + second) / 2.0;
 
-            String sql = "INSERT OR REPLACE INTO student_grades (student_id, first_sem, second_sem, final) VALUES (?, ?, ?, ?)";
+            try (Connection conn = DatabaseConnection.connect()) {
+                // 1. Update Student Details (Year/Dept)
+                String updateStudentSql = "UPDATE students SET year = ?, department = ? WHERE student_id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(updateStudentSql)) {
+                    pstmt.setString(1, yearField.getText());
+                    pstmt.setString(2, deptField.getText());
+                    pstmt.setInt(3, id);
+                    pstmt.executeUpdate();
+                }
 
-            try (Connection conn = DatabaseConnection.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                // 2. Update Grades
+                String sql = "INSERT OR REPLACE INTO student_grades (student_id, first_sem, second_sem, final) VALUES (?, ?, ?, ?)";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setInt(1, id);
+                    pstmt.setDouble(2, first);
+                    pstmt.setDouble(3, second);
+                    pstmt.setDouble(4, finalGrade);
 
-                pstmt.setInt(1, id);
-                pstmt.setDouble(2, first);
-                pstmt.setDouble(3, second);
-                pstmt.setDouble(4, finalGrade);
+                    pstmt.executeUpdate();
+                }
 
-                pstmt.executeUpdate();
-
-                statusLabel.setText("Grades Updated!");
+                statusLabel.setText("Grades & Details Updated!");
                 statusLabel.setStyle("-fx-text-fill: green;");
                 loadGrades();
             }
@@ -129,11 +195,6 @@ public class GradesController {
 
     @FXML
     public void clearFields() {
-        idField.clear();
-        yearField.clear();
-        deptField.clear();
-        firstSemField.clear();
-        secondSemField.clear();
-        statusLabel.setText("");
+        clearFields(true);
     }
 }

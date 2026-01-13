@@ -184,6 +184,39 @@ public class CalculateResultController {
                 }
             }
 
+            // === NEW: Save Detailed Course Grades ===
+            // 1. Delete existing details for this student & semester to avoid duplicates
+            String deleteDetailsSql = "DELETE FROM student_course_grades WHERE student_id = ? AND semester = ?";
+            try (PreparedStatement deleteStmt = conn.prepareStatement(deleteDetailsSql)) {
+                deleteStmt.setInt(1, studentId);
+                deleteStmt.setString(2, semester);
+                deleteStmt.executeUpdate();
+            }
+
+            // 2. Insert new details
+            String insertDetailSql = "INSERT INTO student_course_grades (student_id, semester, course_name, credit, gpa) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement detailStmt = conn.prepareStatement(insertDetailSql)) {
+                for (HBox row : courseRows) {
+                    TextField courseField = (TextField) row.getChildren().get(0);
+                    TextField creditField = (TextField) row.getChildren().get(1);
+                    TextField gpaField = (TextField) row.getChildren().get(2);
+
+                    if (!courseField.getText().isEmpty() && !creditField.getText().isEmpty()
+                            && !gpaField.getText().isEmpty()) {
+
+                        detailStmt.setInt(1, studentId);
+                        detailStmt.setString(2, semester);
+                        detailStmt.setString(3, courseField.getText());
+                        detailStmt.setDouble(4, Double.parseDouble(creditField.getText()));
+                        detailStmt.setDouble(5, Double.parseDouble(gpaField.getText()));
+
+                        detailStmt.addBatch();
+                    }
+                }
+                detailStmt.executeBatch();
+            }
+            // ========================================
+
             // Recalculate Final if both exist and update it?
             // Optional enhancement.
 
